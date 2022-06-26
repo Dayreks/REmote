@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="APG-st-KSK">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -30,9 +30,23 @@
                     <view key="view" contentMode="scaleToFill" id="UKK-jf-OI4">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X8y-IH-5Et">
+                                <rect key="frame" x="0.0" y="44" width="428" height="848"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="PPM-UX-9Hb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="X8y-IH-5Et" firstAttribute="top" secondItem="PPM-UX-9Hb" secondAttribute="top" id="Agh-b7-bMD"/>
+                            <constraint firstItem="PPM-UX-9Hb" firstAttribute="trailing" secondItem="X8y-IH-5Et" secondAttribute="trailing" id="Wkq-6h-Qxi"/>
+                            <constraint firstItem="X8y-IH-5Et" firstAttribute="leading" secondItem="PPM-UX-9Hb" secondAttribute="leading" id="czU-JV-wLS"/>
+                            <constraint firstItem="PPM-UX-9Hb" firstAttribute="bottom" secondItem="X8y-IH-5Et" secondAttribute="bottom" id="rFd-Ej-a69"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="X8y-IH-5Et" id="YKy-IH-Tx0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tt8-Qy-x0B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
