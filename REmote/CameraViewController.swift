@@ -51,10 +51,7 @@ class CameraViewController: UIViewController{
         return imageView
     }()
     
-    
-    var usingFrontCamera = false
-    
-    
+
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,29 +87,20 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate  {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation() else { return }
         guard let image = UIImage(data: data) else { return }
-        
+        var imageToAdd: UIImage
         captureSession?.stopRunning()
-//        guard let device = AVCaptureDevice.default(for: .video) else {
-//            fatalError("no front camera. but don't all iOS 10 devices have them?")
-//        }
         guard let camera = self.newCamera else { return }
         if camera.position == AVCaptureDevice.Position.front {
             guard let cgImg = image.cgImage else { return }
             let imageFromFrontCamera = UIImage(cgImage: cgImg, scale: image.scale, orientation: .leftMirrored)
             self.lastPhotoInGallery.image = imageFromFrontCamera
-            
+            imageToAdd = imageFromFrontCamera
         } else {
             self.lastPhotoInGallery.image = image
+            imageToAdd = image
         }
-       
+               
         
-        
-//        let imageView = UIImageView(image: image)
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.frame = view.bounds
-//        DispatchQueue.main.async { [weak self] in
-//            self?.view.addSubview(imageView)
-//        }
         captureSession?.startRunning()
     }
     
@@ -194,17 +182,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate  {
                         newCamera = cameraWithPosition(position: .back)
                     }
                 }
-//                if captureDevice.position == AVCaptureDevicePosition.back {
-//                    if let image = context.createCGImage(ciImage, from: imageRect) {
-//                        return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
-//                    }
-//                }
-//
-//                if captureDevice.position == AVCaptureDevicePosition.front {
-//                    if let image = context.createCGImage(ciImage, from: imageRect) {
-//                        return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .leftMirrored)
-//                    }
-//                }
 
                 //Add input to session
                 var err: NSError?
