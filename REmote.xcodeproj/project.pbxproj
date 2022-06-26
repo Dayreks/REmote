@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E312863B22A00D9A2D9 /* AppDelegate.swift */; };
 		93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E332863B22A00D9A2D9 /* SceneDelegate.swift */; };
-		93200E362863B22A00D9A2D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E352863B22A00D9A2D9 /* ViewController.swift */; };
+		93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E352863B22A00D9A2D9 /* CameraViewController.swift */; };
 		93200E392863B22A00D9A2D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93200E372863B22A00D9A2D9 /* Main.storyboard */; };
 		93200E3B2863B22B00D9A2D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93200E3A2863B22B00D9A2D9 /* Assets.xcassets */; };
 		93200E3E2863B22B00D9A2D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93200E3C2863B22B00D9A2D9 /* LaunchScreen.storyboard */; };
+		93D04F812867D05D000ECF49 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		93200E2E2863B22A00D9A2D9 /* REmote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = REmote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93200E312863B22A00D9A2D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93200E332863B22A00D9A2D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		93200E352863B22A00D9A2D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		93200E352863B22A00D9A2D9 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		93200E382863B22A00D9A2D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		93200E3A2863B22B00D9A2D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93200E3D2863B22B00D9A2D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93200E3F2863B22B00D9A2D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +60,12 @@
 			children = (
 				93200E312863B22A00D9A2D9 /* AppDelegate.swift */,
 				93200E332863B22A00D9A2D9 /* SceneDelegate.swift */,
-				93200E352863B22A00D9A2D9 /* ViewController.swift */,
+				93200E352863B22A00D9A2D9 /* CameraViewController.swift */,
 				93200E372863B22A00D9A2D9 /* Main.storyboard */,
 				93200E3A2863B22B00D9A2D9 /* Assets.xcassets */,
 				93200E3C2863B22B00D9A2D9 /* LaunchScreen.storyboard */,
 				93200E3F2863B22B00D9A2D9 /* Info.plist */,
+				93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */,
 			);
 			path = REmote;
 			sourceTree = "<group>";
@@ -138,8 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93200E362863B22A00D9A2D9 /* ViewController.swift in Sources */,
+				93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */,
 				93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */,
+				93D04F812867D05D000ECF49 /* PhotoLibraryViewController.swift in Sources */,
 				93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
