@@ -12,10 +12,12 @@ import Photos
 
 class ImageRepository {
     var images = [UIImage]()
+    var faceDetectedImages = [UIImage]()
+    var emotionRecognizedImages = [UIImage]()
     
     static let shared = ImageRepository()
     
-    func requestAllImages(onCompleted: @escaping (ImageRepository) -> Void) {
+    func requestAllImages(onCompleted: @escaping () -> Void) {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
             switch status {
             case .authorized:
@@ -35,7 +37,19 @@ class ImageRepository {
                     PHImageManager.default().requestImage(for: object as PHAsset, targetSize: CGSize(width: 300, height: 300), contentMode: contentMode, options: options) {
                         image, info in
                         guard let image = image else {return}
-                        self?.images.append(image)
+                        
+                        //Check if they have a face
+                        let ciImage = CIImage(cgImage: image.cgImage!)
+                        
+                        let options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+                        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: options)!
+                        
+                        let faces = faceDetector.features(in: ciImage)
+                        
+                        if faces.first is CIFaceFeature {
+                            self?.faceDetectedImages.append(image)
+                        }
+                        
                     }
                 }
             case .denied, .restricted:
@@ -48,8 +62,7 @@ class ImageRepository {
             @unknown default:
                 break
             }
-            
-            onCompleted(self!)
+            onCompleted()
         }
     }
 }

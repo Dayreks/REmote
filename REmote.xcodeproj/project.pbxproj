@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		471FF0972869E8030040EB9C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FF0962869E8030040EB9C /* ImageRepository.swift */; };
+		471FF0992869FAD50040EB9C /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FF0982869FAD50040EB9C /* ImageCell.swift */; };
 		93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E312863B22A00D9A2D9 /* AppDelegate.swift */; };
 		93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E332863B22A00D9A2D9 /* SceneDelegate.swift */; };
 		93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E352863B22A00D9A2D9 /* CameraViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		471FF0962869E8030040EB9C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
+		471FF0982869FAD50040EB9C /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		93200E2E2863B22A00D9A2D9 /* REmote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = REmote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93200E312863B22A00D9A2D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93200E332863B22A00D9A2D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */,
+				471FF0982869FAD50040EB9C /* ImageCell.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */,
 				93EA3D242868C62900CD2C38 /* ImageSaver.swift in Sources */,
 				93D04F812867D05D000ECF49 /* PhotoLibraryViewController.swift in Sources */,
+				471FF0992869FAD50040EB9C /* ImageCell.swift in Sources */,
 				93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

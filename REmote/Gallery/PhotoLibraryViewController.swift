@@ -8,27 +8,39 @@
 import UIKit
 import Photos
 
-class PhotoLibraryViewController: UIViewController {
+class PhotoLibraryViewController: UIViewController,UITableViewDataSource, UIScrollViewDelegate, UITableViewDelegate {
     
-    
-    @IBOutlet private weak var imageView: UIImageView!
     
     //MARK: - Properties
-    var imagesFromLibrary = [UIImage]()
+    
+    //MARK: - Outlets
+    @IBOutlet weak var table: UITableView!
     
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.imageView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
-        ImageRepository.shared.requestAllImages(){ [weak self] images in
+        
+        ImageRepository.shared.requestAllImages(){
             DispatchQueue.main.async {
-                self?.imagesFromLibrary.append(contentsOf: images.images)
-                self?.imageView.image = self?.imagesFromLibrary.last
+                self.table.reloadData()
+                print(ImageRepository.shared.images.count)
             }
         }
-
+        print(ImageRepository.shared.faceDetectedImages.count)
         
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ImageRepository.shared.faceDetectedImages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell_id", for: indexPath) as! ImageCell
+        cell.configureView(image: ImageRepository.shared.faceDetectedImages[indexPath.row])
+        return cell
+    }
+    
+    
     
 }
