@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		471FF0972869E8030040EB9C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FF0962869E8030040EB9C /* ImageRepository.swift */; };
 		93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E312863B22A00D9A2D9 /* AppDelegate.swift */; };
 		93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E332863B22A00D9A2D9 /* SceneDelegate.swift */; };
 		93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E352863B22A00D9A2D9 /* CameraViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		471FF0962869E8030040EB9C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		93200E2E2863B22A00D9A2D9 /* REmote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = REmote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93200E312863B22A00D9A2D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93200E332863B22A00D9A2D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +43,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		471FF0932869E7A00040EB9C /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		471FF0942869E7B70040EB9C /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				93EA3D232868C62900CD2C38 /* ImageSaver.swift */,
+				93200E352863B22A00D9A2D9 /* CameraViewController.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		471FF0952869E7D90040EB9C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				471FF0962869E8030040EB9C /* ImageRepository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		93200E252863B22A00D9A2D9 = {
 			isa = PBXGroup;
 			children = (
@@ -62,13 +89,13 @@
 			children = (
 				93200E312863B22A00D9A2D9 /* AppDelegate.swift */,
 				93200E332863B22A00D9A2D9 /* SceneDelegate.swift */,
-				93200E352863B22A00D9A2D9 /* CameraViewController.swift */,
+				471FF0952869E7D90040EB9C /* Data */,
+				471FF0932869E7A00040EB9C /* Gallery */,
+				471FF0942869E7B70040EB9C /* Camera */,
 				93200E372863B22A00D9A2D9 /* Main.storyboard */,
 				93200E3A2863B22B00D9A2D9 /* Assets.xcassets */,
 				93200E3C2863B22B00D9A2D9 /* LaunchScreen.storyboard */,
 				93200E3F2863B22B00D9A2D9 /* Info.plist */,
-				93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */,
-				93EA3D232868C62900CD2C38 /* ImageSaver.swift */,
 			);
 			path = REmote;
 			sourceTree = "<group>";
@@ -145,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */,
+				471FF0972869E8030040EB9C /* ImageRepository.swift in Sources */,
 				93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */,
 				93EA3D242868C62900CD2C38 /* ImageSaver.swift in Sources */,
 				93D04F812867D05D000ECF49 /* PhotoLibraryViewController.swift in Sources */,
