@@ -54,7 +54,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="imageView" destination="PXU-3S-sqv" id="ueb-Xf-nhI"/>
+                                            <outlet property="picture" destination="PXU-3S-sqv" id="F5n-UH-cDF"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

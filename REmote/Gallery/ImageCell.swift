@@ -10,6 +10,7 @@ import UIKit
 
 class ImageCell: UITableViewCell {
     
+    
     @IBOutlet private weak var picture: UIImageView!
     
     func configureView(image: UIImage) {

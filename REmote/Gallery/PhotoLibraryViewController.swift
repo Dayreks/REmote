@@ -23,7 +23,7 @@ class PhotoLibraryViewController: UIViewController,UITableViewDataSource, UIScro
         self.table.dataSource = self
         self.table.delegate = self
         ImageRepository.shared.requestAllImages() { imgs in
-            ImageRepository.shared.images.append(contentsOf: imgs)
+            ImageRepository.shared.images = imgs
         }
         
         ImageRepository.shared.imagesLoadedHandler = {
