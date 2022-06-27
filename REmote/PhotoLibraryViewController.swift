@@ -44,7 +44,6 @@ class GetImages {
                 let fetchOptions = PHFetchOptions()
                 let allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
                 print("Found \(allPhotos.count) assets")
-                let targetSize: CGSize = CGSize(width: 100, height: 100)
                 let contentMode: PHImageContentMode = .aspectFill
                 
                 allPhotos.enumerateObjects {
@@ -54,7 +53,7 @@ class GetImages {
                     options.isSynchronous = true
                     options.deliveryMode = .highQualityFormat
                     
-                    PHImageManager.default().requestImage(for: object as PHAsset, targetSize: targetSize, contentMode: contentMode, options: options) {
+                    PHImageManager.default().requestImage(for: object as PHAsset, targetSize: CGSize(width: object.pixelWidth, height: object.pixelHeight), contentMode: contentMode, options: options) {
                         image, info in
                         guard let image = image else {return}
                         self.images.append(image)
