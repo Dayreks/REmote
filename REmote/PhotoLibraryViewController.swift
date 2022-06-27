@@ -9,35 +9,58 @@ import UIKit
 import Photos
 
 class PhotoLibraryViewController: UIViewController {
-
+    
     
     @IBOutlet private weak var imageView: UIImageView!
     
     //MARK: - Properties
-    var imagesFromLibrary = [UIImage]()
+    lazy var imagesFromLibrary = [UIImage]()
+    let getImages = GetImages()
     
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        getImages.requestAllImages(){ [weak self] images in
+            DispatchQueue.main.async {
+                self?.imagesFromLibrary.append(contentsOf: images.images)
+                print(self?.imagesFromLibrary.count)
+                self?.imageView.image = self?.imagesFromLibrary.last
+            }
+        }
 
-        requestAllImages()
-        
-        self.imageView.image = imagesFromLibrary.first
-//        self.view.addSubview(UIImageView(image: imagesFromLibrary.first))
         
     }
     
+}
+
+class GetImages {
+    var images = [UIImage]()
     
-    func requestAllImages() {
-        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
+    func requestAllImages(onCompleted: @escaping (GetImages) -> Void) {
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { [self] status in
             switch status {
             case .authorized:
                 let fetchOptions = PHFetchOptions()
                 let allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
                 print("Found \(allPhotos.count) assets")
-                self.imagesFromLibrary.append((allPhotos.firstObject?.getImageForAsset())!)
-                print(self.imagesFromLibrary.count)
+                let targetSize: CGSize = CGSize(width: 100, height: 100)
+                let contentMode: PHImageContentMode = .aspectFill
+                
+                allPhotos.enumerateObjects {
+                    object, index, stop in
+                    
+                    let options = PHImageRequestOptions()
+                    options.isSynchronous = true
+                    options.deliveryMode = .highQualityFormat
+                    
+                    PHImageManager.default().requestImage(for: object as PHAsset, targetSize: targetSize, contentMode: contentMode, options: options) {
+                        image, info in
+                        guard let image = image else {return}
+                        self.images.append(image)
+                    }
+                }
+                print(images.count)
             case .denied, .restricted:
                 print("Not allowed")
             case .notDetermined:
@@ -49,22 +72,9 @@ class PhotoLibraryViewController: UIViewController {
                 break
             }
             
+            onCompleted(self)
         }
     }
-    
-    
-
 }
 
-extension PHAsset {
-    func getImageForAsset() -> UIImage {
-        let manager = PHImageManager.default
-        let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
-        option.isSynchronous = true
-        manager().requestImage(for: self, targetSize: CGSize(width: 100.0, height: 100.0), contentMode: .aspectFit, options: nil, resultHandler: {(result, info) -> Void in
-                thumbnail = result!
-        })
-        return thumbnail
-    }
-}
+
