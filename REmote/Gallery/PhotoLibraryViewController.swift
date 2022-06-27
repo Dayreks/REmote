@@ -20,27 +20,36 @@ class PhotoLibraryViewController: UIViewController,UITableViewDataSource, UIScro
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ImageRepository.shared.requestAllImages(){
-            DispatchQueue.main.async {
-                self.table.reloadData()
-                print(ImageRepository.shared.images.count)
-            }
+        self.table.dataSource = self
+        self.table.delegate = self
+        ImageRepository.shared.requestAllImages() { imgs in
+            ImageRepository.shared.images.append(contentsOf: imgs)
         }
-        print(ImageRepository.shared.faceDetectedImages.count)
+        
+        ImageRepository.shared.imagesLoadedHandler = {
+            self.reloadDataAsync()
+        }
+        
+//        print(ImageRepository.shared.faceDetectedImages.count)
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ImageRepository.shared.faceDetectedImages.count
+        return ImageRepository.shared.images.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell_id", for: indexPath) as! ImageCell
-        cell.configureView(image: ImageRepository.shared.faceDetectedImages[indexPath.row])
+        cell.configureView(image: ImageRepository.shared.images[indexPath.row])
+        print("table view\(ImageRepository.shared.images.count)")
         return cell
     }
     
+    private func reloadDataAsync() {
+        DispatchQueue.main.async { [weak self] in
+            self?.table.reloadData()
+        }
+    }
     
     
 }

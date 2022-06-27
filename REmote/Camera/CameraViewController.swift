@@ -136,12 +136,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate  {
                 if session.canAddOutput(photoOutput) {
                     session.addOutput(photoOutput)
                 }
-//                if let connection = videoPreviewLayer.connection {
-//                    if connection.isVideoMirroringSupported {
-//                        connection.automaticallyAdjustsVideoMirroring = false
-//                        connection.isVideoMirrored = true
-//                    }
-//                }
+                
                 videoPreviewLayer.videoGravity = .resizeAspectFill
                 videoPreviewLayer.session = session
                 

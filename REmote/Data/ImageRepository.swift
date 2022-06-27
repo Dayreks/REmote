@@ -11,13 +11,19 @@ import Photos
 
 
 class ImageRepository {
-    var images = [UIImage]()
+    var images: [UIImage] = [] {
+        didSet {
+            imagesLoadedHandler?()
+        }
+    }
     var faceDetectedImages = [UIImage]()
     var emotionRecognizedImages = [UIImage]()
     
     static let shared = ImageRepository()
     
-    func requestAllImages(onCompleted: @escaping () -> Void) {
+    public var imagesLoadedHandler: (() -> Void)?
+    
+    func requestAllImages(onCompleted: @escaping ([UIImage]) -> Void) {
         PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
             switch status {
             case .authorized:
@@ -39,16 +45,17 @@ class ImageRepository {
                         guard let image = image else {return}
                         
                         //Check if they have a face
-                        let ciImage = CIImage(cgImage: image.cgImage!)
-                        
-                        let options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
-                        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: options)!
-                        
-                        let faces = faceDetector.features(in: ciImage)
-                        
-                        if faces.first is CIFaceFeature {
-                            self?.faceDetectedImages.append(image)
-                        }
+//                        let ciImage = CIImage(cgImage: image.cgImage!)
+//                        
+//                        let options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+//                        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: options)!
+//                        
+//                        let faces = faceDetector.features(in: ciImage)
+//                        
+//                        if faces.first is CIFaceFeature {
+//                            
+//                        }
+                        self?.images.append(image)
                         
                     }
                 }
@@ -62,7 +69,8 @@ class ImageRepository {
             @unknown default:
                 break
             }
-            onCompleted()
+            guard let imgs = self?.images else { return }
+            onCompleted(imgs)
         }
     }
 }
