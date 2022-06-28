@@ -34,6 +34,7 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
         self.collectionView.contentInsetAdjustmentBehavior = .always
         ImageRepository.shared.requestAllImages() { imgs in
             ImageRepository.shared.images = imgs
+            print(ImageRepository.shared.images.count)
             
         }
         

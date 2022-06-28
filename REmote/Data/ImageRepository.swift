@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import Photos
-
+import Vision
 
 class ImageRepository {
     var images: [UIImage] = [] {
@@ -16,7 +16,6 @@ class ImageRepository {
             imagesLoadedHandler?()
         }
     }
-    var faceDetectedImages = [UIImage]()
     var emotionRecognizedImages = [UIImage]()
     
     static let shared = ImageRepository()
@@ -40,23 +39,19 @@ class ImageRepository {
                     options.isSynchronous = true
                     options.deliveryMode = .highQualityFormat
                     
-                    PHImageManager.default().requestImage(for: object as PHAsset, targetSize: CGSize(width: 300, height: 300), contentMode: contentMode, options: options) {
+                    PHImageManager.default().requestImage(for: object as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
                         image, info in
                         guard let image = image else {return}
                         
                         //Check if they have a face
-//                        let ciImage = CIImage(cgImage: image.cgImage!)
-//                        
-//                        let options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
-//                        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: options)!
-//                        
-//                        let faces = faceDetector.features(in: ciImage)
-//                        
-//                        if faces.first is CIFaceFeature {
-//                            
-//                        }
-                        self?.images.append(image)
-                        
+                        let faceImage = CIImage(image: image)
+                        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
+                        let faces = faceDetector?.features(in: faceImage!) as! [CIFaceFeature]
+
+                        if !faces.isEmpty {
+                            self?.images.append(image)
+                        }
+                              
                     }
                 }
             case .denied, .restricted:

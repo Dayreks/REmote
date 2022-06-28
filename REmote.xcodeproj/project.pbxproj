@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		471FF0972869E8030040EB9C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FF0962869E8030040EB9C /* ImageRepository.swift */; };
+		471FF09D286B01E30040EB9C /* EmotionDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 471FF09C286B01E30040EB9C /* EmotionDetector.mlmodel */; };
 		93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E312863B22A00D9A2D9 /* AppDelegate.swift */; };
 		93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E332863B22A00D9A2D9 /* SceneDelegate.swift */; };
 		93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E352863B22A00D9A2D9 /* CameraViewController.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		471FF0962869E8030040EB9C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
+		471FF09C286B01E30040EB9C /* EmotionDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionDetector.mlmodel; sourceTree = "<group>"; };
 		93200E2E2863B22A00D9A2D9 /* REmote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = REmote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93200E312863B22A00D9A2D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93200E332863B22A00D9A2D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		93200E302863B22A00D9A2D9 /* REmote */ = {
 			isa = PBXGroup;
 			children = (
+				471FF09C286B01E30040EB9C /* EmotionDetector.mlmodel */,
 				93200E312863B22A00D9A2D9 /* AppDelegate.swift */,
 				93200E332863B22A00D9A2D9 /* SceneDelegate.swift */,
 				471FF0952869E7D90040EB9C /* Data */,
@@ -188,6 +191,7 @@
 				93E828D6286A73A000FD6158 /* PhotoCollectionViewCell.swift in Sources */,
 				93E828D8286A73F200FD6158 /* Const.swift in Sources */,
 				93D04F812867D05D000ECF49 /* PhotoLibraryViewController.swift in Sources */,
+				471FF09D286B01E30040EB9C /* EmotionDetector.mlmodel in Sources */,
 				93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
