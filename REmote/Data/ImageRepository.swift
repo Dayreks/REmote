@@ -70,6 +70,7 @@ class ImageRepository {
                 break
             }
             guard let imgs = self?.images else { return }
+            
             onCompleted(imgs)
         }
     }
