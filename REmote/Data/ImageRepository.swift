@@ -17,43 +17,24 @@ class ImageRepository {
         }
     }
     var emotionRecognizedImages = [UIImage]()
+    var allPhotos = PHFetchResult<PHAsset>()
+    var currentIndex = 0;
     
     static let shared = ImageRepository()
     
     public var imagesLoadedHandler: (() -> Void)?
     
     func requestAllImages(onCompleted: @escaping ([UIImage]) -> Void) {
-        PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
             switch status {
             case .authorized:
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-                let allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-                print("Found \(allPhotos.count) assets")
-                let contentMode: PHImageContentMode = .aspectFill
+                self.allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+                print("Found \(String(describing: self.allPhotos.count)) assets")
                 
-                allPhotos.enumerateObjects {
-                    object, index, stop in
-                    
-                    let options = PHImageRequestOptions()
-                    options.isSynchronous = true
-                    options.deliveryMode = .highQualityFormat
-                    
-                    PHImageManager.default().requestImage(for: object as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
-                        image, info in
-                        guard let image = image else {return}
-                        
-                        //Check if they have a face
-                        let faceImage = CIImage(image: image)
-                        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
-                        let faces = faceDetector?.features(in: faceImage!) as! [CIFaceFeature]
-
-                        if !faces.isEmpty {
-                            self?.images.append(image)
-                        }
-                              
-                    }
-                }
+                self.loadMoreImages(limit: 100)
+                
             case .denied, .restricted:
                 print("Not allowed")
             case .notDetermined:
@@ -64,9 +45,47 @@ class ImageRepository {
             @unknown default:
                 break
             }
-            guard let imgs = self?.images else { return }
+            onCompleted(self.images)
+        }
+    }
+    
+    func checkFace(image: UIImage) -> Bool {
+        let faceImage = CIImage(image: image)
+        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
+        let faces = faceDetector?.features(in: faceImage!) as! [CIFaceFeature]
+        if !faces.isEmpty {
+            return true
+        }
+        return false
+    }
+    
+    
+    
+    
+    func loadMoreImages(limit: Int) {
+        let contentMode: PHImageContentMode = .aspectFill
+        let currentMax = self.currentIndex
+        
+        self.allPhotos.enumerateObjects {
+            object, index, stop in
             
-            onCompleted(imgs)
+            if (index >= currentMax && index <= (currentMax + limit)) {
+                
+                let options = PHImageRequestOptions()
+                options.isSynchronous = true
+                options.deliveryMode = .highQualityFormat
+                
+                PHImageManager.default().requestImage(for: object as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
+                    image, info in
+                    guard let image = image else {return}
+                
+                    if self.checkFace(image: image) {
+                        self.images.append(image)
+                    }
+                    
+                }
+                self.currentIndex += 1
+            }
         }
     }
 }
