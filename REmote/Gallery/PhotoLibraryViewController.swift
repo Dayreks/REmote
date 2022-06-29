@@ -28,6 +28,9 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ImageRepository.shared.images = []
+        ImageRepository.shared.currentIndex = 0
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.collectionViewLayout = columnLayout
@@ -43,9 +46,6 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
         }
         
         
-        
-//        print(ImageRepository.shared.faceDetectedImages.count)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,17 +55,6 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
         }
         
     }
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return ImageRepository.shared.images.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell_id", for: indexPath) as! ImageCell
-//        cell.configureView(image: ImageRepository.shared.images[indexPath.row])
-//        print("table view\(ImageRepository.shared.images.count)")
-//        return cell
-//    }
     
     private func reloadDataAsync() {
         DispatchQueue.main.async { [weak self] in
