@@ -11,6 +11,7 @@ import Photos
 import Vision
 
 class ImageRepository {
+    
     var images: [UIImage] = [] {
         didSet {
             imagesLoadedHandler?()
@@ -19,6 +20,7 @@ class ImageRepository {
     var emotionRecognizedImages = [UIImage]()
     var allPhotos = PHFetchResult<PHAsset>()
     var currentIndex = 0;
+    var emotionForCurrentLoad = ""
     
     static let shared = ImageRepository()
     

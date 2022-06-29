@@ -10,5 +10,8 @@ import Foundation
 struct Const {
     
     static let cellReuseID = "photo_cell"
+    static let photoLibraryVCID = "photo_library_vc"
+    static let cameraToChooseEmotion = "cameraToChoose"
+    static let chooseEmotionToLibrary = "chooseToLibrary"
     
 }

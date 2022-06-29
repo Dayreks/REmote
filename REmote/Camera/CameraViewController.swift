@@ -11,9 +11,10 @@ import AVFoundation
 class CameraViewController: UIViewController{
 
     //MARK: - IBOutlets
+    @IBOutlet private weak var chooseEmotionButton: UIButton!
     
     //MARK: - IBActions
-   
+    
     //MARK: - Properties
     var captureSession: AVCaptureSession?
     var photoOutput = AVCapturePhotoOutput()
@@ -48,6 +49,7 @@ class CameraViewController: UIViewController{
         imageView.layer.cornerRadius = imageView.frame.size.width/20.0
         imageView.image = UIImage(systemName: "photo")
         imageView.tintColor = .white
+        
         return imageView
     }()
     
@@ -60,12 +62,16 @@ class CameraViewController: UIViewController{
         self.view.addSubview(takePhotoButton)
         self.view.addSubview(switchCameraMode)
         self.view.addSubview(lastPhotoInGallery)
-        
+        self.chooseEmotionButton.imageView?.layer.transform = CATransform3DMakeScale(1.25, 1.25, 1.25)
+        self.view.addSubview(self.chooseEmotionButton)
+        self.newCamera = cameraWithPosition(position: .back)
         askCameraPermission()
         
         takePhotoButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
         switchCameraMode.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
-
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
+        self.lastPhotoInGallery.addGestureRecognizer(tapGR)
+        self.lastPhotoInGallery.isUserInteractionEnabled = true
         
     }
     
@@ -75,10 +81,16 @@ class CameraViewController: UIViewController{
         let horizontalLine = view.frame.size.height-100
         self.takePhotoButton.center = CGPoint(x: view.frame.size.width/2, y: horizontalLine)
         self.switchCameraMode.center = CGPoint(x: view.frame.size.width*0.9, y: horizontalLine)
-        self.lastPhotoInGallery.center = CGPoint(x: view.frame.size.width*0.1, y: horizontalLine)
+        self.lastPhotoInGallery.center = CGPoint(x: view.frame.size.width*0.1, y: horizontalLine/10)
+        self.chooseEmotionButton.center = CGPoint(x: view.frame.size.width*0.1, y: horizontalLine)
     }
 
-    
+    @objc
+    private func imageTapped(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            print("img tapped")
+        }
+    }
 
 }
 
@@ -87,28 +99,27 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate  {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation() else { return }
         guard let image = UIImage(data: data) else { return }
-        var imageToAdd: UIImage
+        
         captureSession?.stopRunning()
-        guard let camera = self.newCamera else { return }
-        if camera.position == AVCaptureDevice.Position.front {
-            guard let cgImg = image.cgImage else { return }
-            let imageFromFrontCamera = UIImage(cgImage: cgImg, scale: image.scale, orientation: .leftMirrored)
-            self.lastPhotoInGallery.image = imageFromFrontCamera
-            imageToAdd = imageFromFrontCamera
-        } else {
-            self.lastPhotoInGallery.image = image
-            imageToAdd = image
+        
+        if let camera = self.newCamera {
+            if camera.position == AVCaptureDevice.Position.front {
+                guard let cgImg = image.cgImage else { return }
+                let imageFromFrontCamera = UIImage(cgImage: cgImg, scale: image.scale, orientation: .leftMirrored)
+                self.lastPhotoInGallery.image = imageFromFrontCamera
+
+            } else {
+                self.lastPhotoInGallery.image = image
+            }
         }
                
-        
         captureSession?.startRunning()
     }
     
     private func askCameraPermission() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
             case .notDetermined:
-                AVCaptureDevice.requestAccess(for: .video) {
-                    [weak self] granted in
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
                     guard granted else { return }
                     DispatchQueue.main.async {
                         self?.setUpCamera()
@@ -171,10 +182,10 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate  {
                 
                 if let input = currentCameraInput as? AVCaptureDeviceInput {
                     if (input.device.position == .back) {
-                        newCamera = cameraWithPosition(position: .front)
+                        self.newCamera = cameraWithPosition(position: .front)
                         
                     } else {
-                        newCamera = cameraWithPosition(position: .back)
+                        self.newCamera = cameraWithPosition(position: .back)
                     }
                 }
 

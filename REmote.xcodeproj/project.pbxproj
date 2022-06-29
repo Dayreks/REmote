@@ -15,6 +15,8 @@
 		93200E392863B22A00D9A2D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93200E372863B22A00D9A2D9 /* Main.storyboard */; };
 		93200E3B2863B22B00D9A2D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93200E3A2863B22B00D9A2D9 /* Assets.xcassets */; };
 		93200E3E2863B22B00D9A2D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93200E3C2863B22B00D9A2D9 /* LaunchScreen.storyboard */; };
+		9325ED6B286BB3EE009B6C66 /* ChooseEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325ED6A286BB3EE009B6C66 /* ChooseEmotionViewController.swift */; };
+		9325ED6D286BB85B009B6C66 /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325ED6C286BB85B009B6C66 /* Emotion.swift */; };
 		93D04F812867D05D000ECF49 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */; };
 		93E828D6286A73A000FD6158 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E828D5286A73A000FD6158 /* PhotoCollectionViewCell.swift */; };
 		93E828D8286A73F200FD6158 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E828D7286A73F200FD6158 /* Const.swift */; };
@@ -33,6 +35,8 @@
 		93200E3A2863B22B00D9A2D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93200E3D2863B22B00D9A2D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93200E3F2863B22B00D9A2D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9325ED6A286BB3EE009B6C66 /* ChooseEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseEmotionViewController.swift; sourceTree = "<group>"; };
+		9325ED6C286BB85B009B6C66 /* Emotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emotion.swift; sourceTree = "<group>"; };
 		93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
 		93E828D5286A73A000FD6158 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		93E828D7286A73F200FD6158 /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
@@ -57,6 +61,8 @@
 				93D04F802867D05D000ECF49 /* PhotoLibraryViewController.swift */,
 				93E828D5286A73A000FD6158 /* PhotoCollectionViewCell.swift */,
 				93E828D9286A886900FD6158 /* ColumnFlowLayout.swift */,
+				9325ED6A286BB3EE009B6C66 /* ChooseEmotionViewController.swift */,
+				9325ED6C286BB85B009B6C66 /* Emotion.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -188,11 +194,13 @@
 				471FF0972869E8030040EB9C /* ImageRepository.swift in Sources */,
 				93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */,
 				93EA3D242868C62900CD2C38 /* ImageSaver.swift in Sources */,
+				9325ED6B286BB3EE009B6C66 /* ChooseEmotionViewController.swift in Sources */,
 				93E828D6286A73A000FD6158 /* PhotoCollectionViewCell.swift in Sources */,
 				93E828D8286A73F200FD6158 /* Const.swift in Sources */,
 				93D04F812867D05D000ECF49 /* PhotoLibraryViewController.swift in Sources */,
 				471FF09D286B01E30040EB9C /* EmotionDetector.mlmodel in Sources */,
 				93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */,
+				9325ED6D286BB85B009B6C66 /* Emotion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

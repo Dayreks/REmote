@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="APG-st-KSK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Cbh-3i-Peh">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="EPd-m0-ff5">
+            <objects>
+                <navigationController id="Cbh-3i-Peh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KAo-IN-oVd">
+                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="AIP-ac-xjE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lmq-3s-2zL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-854" y="135"/>
+        </scene>
         <!--Camera View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -16,24 +33,109 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G0a-Bm-fFC">
+                                <rect key="frame" x="16" y="826" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="36n-Hl-1Kw"/>
+                                    <constraint firstAttribute="height" constant="50" id="cLN-vy-XOn"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="folder.badge.person.crop" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="KzW-HF-6IX" kind="show" identifier="cameraToChoose" id="YIU-KP-nmo"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="G0a-Bm-fFC" secondAttribute="bottom" constant="16" id="6ai-aX-DBj"/>
+                            <constraint firstItem="G0a-Bm-fFC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="DTN-Yj-JuI"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="7Jn-oT-YZY">
+                        <barButtonItem key="backBarButtonItem" title="Camera" id="UVK-86-7kI"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="chooseEmotionButton" destination="G0a-Bm-fFC" id="9OG-yK-JtT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="135"/>
         </scene>
+        <!--Emotion to show-->
+        <scene sceneID="bql-sr-v40">
+            <objects>
+                <viewController storyboardIdentifier="choose_emotion_vc" id="KzW-HF-6IX" customClass="ChooseEmotionViewController" customModule="REmote" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DV9-92-daM">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gui-lN-rXL">
+                                <rect key="frame" x="0.0" y="426" width="428" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="BiK-Ib-yoy"/>
+                                </constraints>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zx6-DQ-RtB">
+                                <rect key="frame" x="164" y="570" width="100" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="8ev-Mm-zJT"/>
+                                    <constraint firstAttribute="height" constant="50" id="FqV-16-8XT"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="choose">
+                                            <attributes>
+                                                <font key="NSFont" size="22" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="APG-st-KSK" kind="show" identifier="chooseToLibrary" id="OjI-lp-4lF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cGr-Q5-IOu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Gui-lN-rXL" firstAttribute="centerY" secondItem="cGr-Q5-IOu" secondAttribute="centerY" id="4JI-k9-ehb"/>
+                            <constraint firstItem="Zx6-DQ-RtB" firstAttribute="centerX" secondItem="cGr-Q5-IOu" secondAttribute="centerX" id="Bus-qh-KXn"/>
+                            <constraint firstItem="Gui-lN-rXL" firstAttribute="leading" secondItem="cGr-Q5-IOu" secondAttribute="leading" id="M2Z-Jn-ydB"/>
+                            <constraint firstItem="Zx6-DQ-RtB" firstAttribute="top" secondItem="Gui-lN-rXL" secondAttribute="bottom" constant="16" id="V86-EL-vg5"/>
+                            <constraint firstItem="Gui-lN-rXL" firstAttribute="trailing" secondItem="cGr-Q5-IOu" secondAttribute="trailing" id="ys8-KY-F5T"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Emotion to show" id="dYV-Hb-BFV">
+                        <barButtonItem key="backBarButtonItem" title="Emotion" id="Gv6-jp-ygC"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="chooseEmotionButton" destination="Zx6-DQ-RtB" id="9HV-8w-sTe"/>
+                        <outlet property="pickerView" destination="Gui-lN-rXL" id="Whf-7A-L6t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TfS-sI-sss" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1089" y="135"/>
+        </scene>
         <!--Photo Library View Controller-->
         <scene sceneID="hud-91-Wn5">
             <objects>
-                <viewController id="APG-st-KSK" customClass="PhotoLibraryViewController" customModule="REmote" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="photo_library_vc" id="APG-st-KSK" customClass="PhotoLibraryViewController" customModule="REmote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UKK-jf-OI4">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="61P-FL-bLw">
-                                <rect key="frame" x="0.0" y="44" width="428" height="848"/>
+                                <rect key="frame" x="0.0" y="88" width="428" height="804"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VQ3-yr-LWz">
                                     <size key="itemSize" width="128" height="128"/>
@@ -71,16 +173,18 @@
                             <constraint firstItem="61P-FL-bLw" firstAttribute="top" secondItem="PPM-UX-9Hb" secondAttribute="top" id="mJg-gC-JWK"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="m4L-a3-4hn"/>
                     <connections>
                         <outlet property="collectionView" destination="61P-FL-bLw" id="uca-CR-8jg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tt8-Qy-x0B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1115.8878504672896" y="134.77321814254861"/>
+            <point key="canvasLocation" x="1986" y="135"/>
         </scene>
     </scenes>
     <resources>
+        <image name="folder.badge.person.crop" catalog="system" width="128" height="91"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
