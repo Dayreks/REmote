@@ -18,8 +18,9 @@ class ImageRepository {
         }
     }
     var emotionRecognizedImages = [UIImage]()
-    var allPhotos = PHFetchResult<PHAsset>()
+    private var allPhotos = PHFetchResult<PHAsset>()
     var currentIndex = 0;
+    var maxIndex = 0
     var emotionForCurrentLoad = ""
     
     static let shared = ImageRepository()
@@ -33,6 +34,7 @@ class ImageRepository {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
                 self.allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+                self.maxIndex = self.allPhotos.count
                 print("Found \(String(describing: self.allPhotos.count)) assets")
                 
                 self.loadMoreImages(limit: 100)
@@ -65,30 +67,28 @@ class ImageRepository {
     
     
     func loadMoreImages(limit: Int) {
-        let contentMode: PHImageContentMode = .aspectFill
-        let currentMax = self.currentIndex
-        
-        self.allPhotos.enumerateObjects {
-            object, index, stop in
+            let contentMode: PHImageContentMode = .aspectFill
             
-            if (index >= currentMax && index <= (currentMax + limit)) {
-                
-                let options = PHImageRequestOptions()
-                options.isSynchronous = true
-                options.deliveryMode = .highQualityFormat
-                
-                PHImageManager.default().requestImage(for: object as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
-                    image, info in
-                    guard let image = image else {return}
-                
-                    if self.checkFace(image: image) {
-                        self.images.append(image)
-                    }
+            let options = PHImageRequestOptions()
+            options.isSynchronous = true
+            options.deliveryMode = .highQualityFormat
+            
+            
+            for i in (self.currentIndex...(self.currentIndex + limit)) {
+                if(i <= self.maxIndex) {
+                    PHImageManager.default().requestImage(for: self.allPhotos.object(at: i) as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
+                        image, info in
+                        guard let image = image else {return}
                     
+                        if self.checkFace(image: image) {
+                            self.images.append(image)
+                        }
+                        
+                    }
                 }
                 self.currentIndex += 1
             }
+            
         }
-    }
 }
 
