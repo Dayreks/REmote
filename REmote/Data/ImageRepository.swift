@@ -90,7 +90,7 @@ class ImageRepository {
                             self.predictor.predict(image: image, faceBounds: faceCheck.1){ result in
                                 DispatchQueue.main.async {
                                     if (result?.first?.0.lowercased() == self.emotionForCurrentLoad.lowercased()){
-                                        self.images.append(image)
+                                        self.images.append(UIImage(cgImage: cutImageRef))
                                     }
                                 }
                                 
