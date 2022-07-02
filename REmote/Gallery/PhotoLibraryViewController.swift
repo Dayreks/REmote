@@ -35,10 +35,15 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
         self.collectionView.dataSource = self
         self.collectionView.collectionViewLayout = columnLayout
         self.collectionView.contentInsetAdjustmentBehavior = .always
-        ImageRepository.shared.requestAllImages() { imgs in
-            ImageRepository.shared.images = imgs
-            print(ImageRepository.shared.images.count)
-            
+        if (ImageRepository.shared.allPhotos.count == 0){
+            ImageRepository.shared.requestAllImages() { imgs in
+                ImageRepository.shared.images = imgs
+                ImageRepository.shared.loadMoreImages(limit: 100)
+                print(ImageRepository.shared.images.count)
+                
+            }
+        } else {
+            ImageRepository.shared.loadMoreImages(limit: 100)
         }
         
         ImageRepository.shared.imagesLoadedHandler = {
@@ -66,27 +71,27 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
 }
 
 extension UICollectionView {
-
+    
     // MARK: - UICollectionView scrolling/datasource
     /// Last Section of the CollectionView
     var lastSection: Int {
         return numberOfSections - 1
     }
-
+    
     /// IndexPath of the last item in last section.
     var lastIndexPath: IndexPath? {
         guard lastSection >= 0 else {
             return nil
         }
-
+        
         let lastItem = numberOfItems(inSection: lastSection) - 1
         guard lastItem >= 0 else {
             return nil
         }
-
+        
         return IndexPath(item: lastItem, section: lastSection)
     }
-
+    
     /// Islands: Scroll to bottom of the CollectionView
     /// by scrolling to the last item in CollectionView
     func scrollToBottom(animated: Bool) {

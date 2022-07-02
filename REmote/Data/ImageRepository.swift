@@ -18,10 +18,13 @@ class ImageRepository {
         }
     }
     var emotionRecognizedImages = [UIImage]()
-    private var allPhotos = PHFetchResult<PHAsset>()
+    var allPhotos = PHFetchResult<PHAsset>()
     var currentIndex = 0;
     var maxIndex = 0
     var emotionForCurrentLoad = ""
+    
+    private let predictor = EmotionCheck()
+    
     
     static let shared = ImageRepository()
     
@@ -37,8 +40,6 @@ class ImageRepository {
                 self.maxIndex = self.allPhotos.count
                 print("Found \(String(describing: self.allPhotos.count)) assets")
                 
-                self.loadMoreImages(limit: 100)
-                
             case .denied, .restricted:
                 print("Not allowed")
             case .notDetermined:
@@ -53,42 +54,54 @@ class ImageRepository {
         }
     }
     
-    func checkFace(image: UIImage) -> Bool {
+    func checkFace(image: UIImage) -> (Bool, CGRect?) {
         let faceImage = CIImage(image: image)
         let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
         let faces = faceDetector?.features(in: faceImage!) as! [CIFaceFeature]
         if !faces.isEmpty {
-            return true
+            guard let bounds = faces.first?.bounds else {return (true, nil)}
+            return (true,bounds)
         }
-        return false
+        return (false, nil)
+    }
+
+    
+    private func showPrediction(predictions: [EmotionCheck]?){
     }
     
-    
-    
-    
     func loadMoreImages(limit: Int) {
-            let contentMode: PHImageContentMode = .aspectFill
-            
-            let options = PHImageRequestOptions()
-            options.isSynchronous = true
-            options.deliveryMode = .highQualityFormat
-            
-            
-            for i in (self.currentIndex...(self.currentIndex + limit)) {
-                if(i <= self.maxIndex) {
-                    PHImageManager.default().requestImage(for: self.allPhotos.object(at: i) as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
-                        image, info in
-                        guard let image = image else {return}
+        let contentMode: PHImageContentMode = .aspectFill
+        
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        options.deliveryMode = .highQualityFormat
+        
+        
+        for i in (self.currentIndex...(self.currentIndex + limit)) {
+            if(i <= self.maxIndex) {
+                PHImageManager.default().requestImage(for: self.allPhotos.object(at: i) as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
+                    image, info in
+                    guard let image = image else {return}
                     
-                        if self.checkFace(image: image) {
-                            self.images.append(image)
+                    let faceCheck = self.checkFace(image: image)
+                    
+                    if faceCheck.0 {
+                        DispatchQueue.global(qos: .userInteractive).async {
+                            self.predictor.predict(image: image, faceBounds: faceCheck.1){ result in
+                                DispatchQueue.main.async {
+                                    if (result?.first?.0.lowercased() == self.emotionForCurrentLoad.lowercased()){
+                                        self.images.append(image)
+                                    }
+                                }
+                                
+                            }
                         }
-                        
                     }
                 }
-                self.currentIndex += 1
             }
-            
+            self.currentIndex += 1
         }
+        
+    }
 }
 
