@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		471FF0972869E8030040EB9C /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FF0962869E8030040EB9C /* ImageRepository.swift */; };
-		47432B0828709A78009A929C /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B0728709A78009A929C /* Emotion.swift */; };
 		47432B0C28709AAB009A929C /* CNNEmotions.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 47432B0B28709AAB009A929C /* CNNEmotions.mlmodel */; };
 		47432B0E28709ADD009A929C /* EmotionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B0D28709ADD009A929C /* EmotionCheck.swift */; };
 		47432B1028709B01009A929C /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B0F28709B01009A929C /* PhotoLibraryViewController.swift */; };
+		47432B1228709CBA009A929C /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B1128709CBA009A929C /* Emotion.swift */; };
 		93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E312863B22A00D9A2D9 /* AppDelegate.swift */; };
 		93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E332863B22A00D9A2D9 /* SceneDelegate.swift */; };
 		93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E352863B22A00D9A2D9 /* CameraViewController.swift */; };
@@ -27,10 +27,10 @@
 
 /* Begin PBXFileReference section */
 		471FF0962869E8030040EB9C /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
-		47432B0728709A78009A929C /* Emotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Emotion.swift; path = ../../../ML_AR/REmote/REmote/Gallery/Emotion.swift; sourceTree = "<group>"; };
 		47432B0B28709AAB009A929C /* CNNEmotions.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CNNEmotions.mlmodel; sourceTree = "<group>"; };
 		47432B0D28709ADD009A929C /* EmotionCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionCheck.swift; sourceTree = "<group>"; };
 		47432B0F28709B01009A929C /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
+		47432B1128709CBA009A929C /* Emotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emotion.swift; sourceTree = "<group>"; };
 		93200E2E2863B22A00D9A2D9 /* REmote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = REmote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93200E312863B22A00D9A2D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93200E332863B22A00D9A2D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 				93E828D5286A73A000FD6158 /* PhotoCollectionViewCell.swift */,
 				93E828D9286A886900FD6158 /* ColumnFlowLayout.swift */,
 				9325ED6A286BB3EE009B6C66 /* ChooseEmotionViewController.swift */,
-				47432B0728709A78009A929C /* Emotion.swift */,
+				47432B1128709CBA009A929C /* Emotion.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -203,7 +203,7 @@
 				93E828D6286A73A000FD6158 /* PhotoCollectionViewCell.swift in Sources */,
 				93E828D8286A73F200FD6158 /* Const.swift in Sources */,
 				93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */,
-				47432B0828709A78009A929C /* Emotion.swift in Sources */,
+				47432B1228709CBA009A929C /* Emotion.swift in Sources */,
 				47432B1028709B01009A929C /* PhotoLibraryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
