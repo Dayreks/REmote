@@ -68,6 +68,61 @@
             </objects>
             <point key="canvasLocation" x="139" y="135"/>
         </scene>
+        <!--Taken Photo View Controller-->
+        <scene sceneID="fdv-Bl-z4q">
+            <objects>
+                <viewController storyboardIdentifier="taken_photo_vc" id="GBi-d6-ljD" customClass="TakenPhotoViewController" customModule="REmote" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="y14-re-RWD">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uXX-6Q-v5B">
+                                <rect key="frame" x="0.0" y="44" width="428" height="848"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IHY-qL-jPj">
+                                        <rect key="frame" x="0.0" y="0.0" width="428" height="848"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Emotion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="128" translatesAutoresizingMaskIntoConstraints="NO" id="9QH-Dd-ZCI">
+                                        <rect key="frame" x="32" y="720" width="128" height="64"/>
+                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="6Xj-ts-S0e"/>
+                                            <constraint firstAttribute="width" constant="128" id="s3g-sx-Vcj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="IHY-qL-jPj" secondAttribute="bottom" id="83V-5n-Qux"/>
+                                    <constraint firstAttribute="bottom" secondItem="9QH-Dd-ZCI" secondAttribute="bottom" constant="64" id="8zc-3h-Al7"/>
+                                    <constraint firstItem="IHY-qL-jPj" firstAttribute="top" secondItem="uXX-6Q-v5B" secondAttribute="top" id="h7p-Fh-LtT"/>
+                                    <constraint firstAttribute="trailing" secondItem="IHY-qL-jPj" secondAttribute="trailing" id="kRV-IC-vSd"/>
+                                    <constraint firstItem="9QH-Dd-ZCI" firstAttribute="leading" secondItem="uXX-6Q-v5B" secondAttribute="leading" constant="32" id="m6t-Pu-B9e"/>
+                                    <constraint firstItem="IHY-qL-jPj" firstAttribute="leading" secondItem="uXX-6Q-v5B" secondAttribute="leading" id="xCG-7h-ZAg"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Lvx-Be-Nee"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Lvx-Be-Nee" firstAttribute="bottom" secondItem="uXX-6Q-v5B" secondAttribute="bottom" id="8wu-4N-1uO"/>
+                            <constraint firstItem="uXX-6Q-v5B" firstAttribute="leading" secondItem="Lvx-Be-Nee" secondAttribute="leading" id="9vC-Yp-7vs"/>
+                            <constraint firstItem="uXX-6Q-v5B" firstAttribute="top" secondItem="Lvx-Be-Nee" secondAttribute="top" id="M5X-C4-VJG"/>
+                            <constraint firstItem="Lvx-Be-Nee" firstAttribute="trailing" secondItem="uXX-6Q-v5B" secondAttribute="trailing" id="eqc-Ql-LT1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emotionLabel" destination="9QH-Dd-ZCI" id="q8V-nf-qg2"/>
+                        <outlet property="takenPhotoImageView" destination="IHY-qL-jPj" id="4vy-vr-eea"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="54w-0X-ddS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138.78504672897196" y="868.89848812095033"/>
+        </scene>
         <!--Emotion to show-->
         <scene sceneID="bql-sr-v40">
             <objects>
@@ -185,6 +240,9 @@
     </scenes>
     <resources>
         <image name="folder.badge.person.crop" catalog="system" width="128" height="91"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

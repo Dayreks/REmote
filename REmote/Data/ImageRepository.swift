@@ -22,6 +22,7 @@ class ImageRepository {
     var allPhotos = PHFetchResult<PHAsset>()
     var currentIndex = 0;
     var emotionForCurrentLoad = ""
+    var takenPhoto: UIImage?
     
     
     private let predictor = EmotionCheck()

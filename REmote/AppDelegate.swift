@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 ImageRepository.shared.images = imgs
                 print(ImageRepository.shared.images.count)
             }
+        
+        
         return true
     }
 

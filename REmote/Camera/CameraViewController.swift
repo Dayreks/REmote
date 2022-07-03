@@ -16,11 +16,12 @@ class CameraViewController: UIViewController{
     //MARK: - IBActions
     
     //MARK: - Properties
-    var captureSession: AVCaptureSession?
-    var photoOutput = AVCapturePhotoOutput()
-    var videoPreviewLayer = AVCaptureVideoPreviewLayer()
-    var newCamera: AVCaptureDevice?
+    private var captureSession: AVCaptureSession?
+    private var photoOutput = AVCapturePhotoOutput()
+    private var videoPreviewLayer = AVCaptureVideoPreviewLayer()
+    private var newCamera: AVCaptureDevice?
     private var currentCameraInput: AVCaptureInput?
+    private let imagePickerController = UIImagePickerController()
     
     
     
@@ -101,17 +102,24 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate  {
         guard let image = UIImage(data: data) else { return }
         
         captureSession?.stopRunning()
-        
+        var imgToScan: UIImage?
         if let camera = self.newCamera {
             if camera.position == AVCaptureDevice.Position.front {
                 guard let cgImg = image.cgImage else { return }
                 let imageFromFrontCamera = UIImage(cgImage: cgImg, scale: image.scale, orientation: .leftMirrored)
                 self.lastPhotoInGallery.image = imageFromFrontCamera
-
+                imgToScan = imageFromFrontCamera
             } else {
                 self.lastPhotoInGallery.image = image
+                imgToScan = image
             }
         }
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: Const.takenPhotoVCID) as? TakenPhotoViewController else { return }
+        ImageRepository.shared.takenPhoto = imgToScan
+        vc.image = imgToScan
+        vc.emotion = "emotion"
+        self.present(vc, animated: true)
+        
                
         captureSession?.startRunning()
     }
@@ -163,6 +171,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate  {
     @objc
     private func takePhoto() {
         photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        
     }
     
     @objc

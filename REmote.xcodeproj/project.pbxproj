@@ -12,9 +12,10 @@
 		47432B0E28709ADD009A929C /* EmotionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B0D28709ADD009A929C /* EmotionCheck.swift */; };
 		47432B1028709B01009A929C /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B0F28709B01009A929C /* PhotoLibraryViewController.swift */; };
 		47432B1228709CBA009A929C /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B1128709CBA009A929C /* Emotion.swift */; };
+		47432B162871E1EB009A929C /* TakenPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B152871E1EB009A929C /* TakenPhotoViewController.swift */; };
+		47432B182871E1EF009A929C /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47432B172871E1EF009A929C /* CameraViewController.swift */; };
 		93200E322863B22A00D9A2D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E312863B22A00D9A2D9 /* AppDelegate.swift */; };
 		93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E332863B22A00D9A2D9 /* SceneDelegate.swift */; };
-		93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93200E352863B22A00D9A2D9 /* CameraViewController.swift */; };
 		93200E392863B22A00D9A2D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93200E372863B22A00D9A2D9 /* Main.storyboard */; };
 		93200E3B2863B22B00D9A2D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93200E3A2863B22B00D9A2D9 /* Assets.xcassets */; };
 		93200E3E2863B22B00D9A2D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93200E3C2863B22B00D9A2D9 /* LaunchScreen.storyboard */; };
@@ -31,10 +32,11 @@
 		47432B0D28709ADD009A929C /* EmotionCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionCheck.swift; sourceTree = "<group>"; };
 		47432B0F28709B01009A929C /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
 		47432B1128709CBA009A929C /* Emotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emotion.swift; sourceTree = "<group>"; };
+		47432B152871E1EB009A929C /* TakenPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakenPhotoViewController.swift; sourceTree = "<group>"; };
+		47432B172871E1EF009A929C /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		93200E2E2863B22A00D9A2D9 /* REmote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = REmote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93200E312863B22A00D9A2D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93200E332863B22A00D9A2D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		93200E352863B22A00D9A2D9 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		93200E382863B22A00D9A2D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		93200E3A2863B22B00D9A2D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93200E3D2863B22B00D9A2D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -72,8 +74,9 @@
 		471FF0942869E7B70040EB9C /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				47432B172871E1EF009A929C /* CameraViewController.swift */,
+				47432B152871E1EB009A929C /* TakenPhotoViewController.swift */,
 				93EA3D232868C62900CD2C38 /* ImageSaver.swift */,
-				93200E352863B22A00D9A2D9 /* CameraViewController.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -193,7 +196,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				47432B0C28709AAB009A929C /* CNNEmotions.mlmodel in Sources */,
-				93200E362863B22A00D9A2D9 /* CameraViewController.swift in Sources */,
 				47432B0E28709ADD009A929C /* EmotionCheck.swift in Sources */,
 				93E828DA286A886900FD6158 /* ColumnFlowLayout.swift in Sources */,
 				471FF0972869E8030040EB9C /* ImageRepository.swift in Sources */,
@@ -203,8 +205,10 @@
 				93E828D6286A73A000FD6158 /* PhotoCollectionViewCell.swift in Sources */,
 				93E828D8286A73F200FD6158 /* Const.swift in Sources */,
 				93200E342863B22A00D9A2D9 /* SceneDelegate.swift in Sources */,
+				47432B182871E1EF009A929C /* CameraViewController.swift in Sources */,
 				47432B1228709CBA009A929C /* Emotion.swift in Sources */,
 				47432B1028709B01009A929C /* PhotoLibraryViewController.swift in Sources */,
+				47432B162871E1EB009A929C /* TakenPhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
