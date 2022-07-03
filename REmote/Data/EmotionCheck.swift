@@ -20,7 +20,7 @@ public class EmotionCheck {
         return try! VNCoreMLModel(for: baseModel.model)
     }()
     
-    func predict(image: UIImage, faceBounds: CGRect?, complition: @escaping ([EmotionResult]?) -> Void) {
+    func predict(image: UIImage, complition: @escaping ([EmotionResult]?) -> Void) {
         self.compl = complition
         let request = classificationRequest()
         let handler = VNImageRequestHandler(

@@ -65,7 +65,53 @@ class ImageRepository {
     }
     
     
-    private func showPrediction(predictions: [EmotionCheck]?){
+    func takenPhotoEmotion() -> (String, UIImage?){
+        guard let image = takenPhoto else {return ("No photo taken", nil)}
+        let faceCheck = self.checkFace(image: image)
+        var emotion = ""
+        var face = UIImage()
+        if (faceCheck.0) {
+            let transformScale = CGAffineTransform(scaleX: 1, y: -1)
+            let faceImage = CIImage(image: image)
+            let transform = transformScale.translatedBy(x: 0, y: -faceImage!.extent.height)
+            guard let cutImageRef: CGImage = image.cgImage?.cropping(to:faceCheck.1!.applying(transform)) else {return ("", nil)}
+            
+            let finalFace = rotateImage(UIImage(cgImage: cutImageRef), withAngle: 90)
+            
+            
+            self.predictor.predict(image: finalFace!) { result in
+                
+                guard let maxItem = result!.max(by: {$0.1 < $1.1 }) else {return}
+                print(maxItem)
+                emotion = maxItem.0
+                face = finalFace!
+            }
+        }
+        else {
+            return ("No face :(", nil)
+        }
+        return (emotion, face)
+    }
+    
+    func rotateImage(_ image: UIImage, withAngle angle: Double) -> UIImage? {
+        if angle.truncatingRemainder(dividingBy: 360) == 0 { return image }
+        
+        let imageRect = CGRect(origin: .zero, size: image.size)
+        let radian = CGFloat(angle / 180 * .pi)
+        let rotatedTransform = CGAffineTransform.identity.rotated(by: radian)
+        var rotatedRect = imageRect.applying(rotatedTransform)
+        rotatedRect.origin.x = 0
+        rotatedRect.origin.y = 0
+        
+        UIGraphicsBeginImageContext(rotatedRect.size)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        context.translateBy(x: rotatedRect.width / 2, y: rotatedRect.height / 2)
+        context.rotate(by: radian)
+        context.translateBy(x: -image.size.width / 2, y: -image.size.height / 2)
+        image.draw(at: .zero)
+        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return rotatedImage
     }
     
     func loadMoreImages(limit: Int) {
@@ -93,7 +139,7 @@ class ImageRepository {
                     guard let cutImageRef: CGImage = image.cgImage?.cropping(to:faceCheck.1!.applying(transform)) else {return}
                     
                     DispatchQueue.global(qos: .userInteractive).async {
-                        self.predictor.predict(image: UIImage(cgImage: cutImageRef), faceBounds: faceCheck.1){ result in
+                        self.predictor.predict(image: UIImage(cgImage: cutImageRef)){ result in
                             DispatchQueue.main.async {
                                 guard let maxItem = result!.max(by: {$0.1 < $1.1 }) else {return}
                                 print(maxItem)
