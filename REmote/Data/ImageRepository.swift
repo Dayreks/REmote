@@ -17,14 +17,14 @@ class ImageRepository {
             imagesLoadedHandler?()
         }
     }
+    
     var emotionRecognizedImages = [UIImage]()
     var allPhotos = PHFetchResult<PHAsset>()
     var currentIndex = 0;
-    var maxIndex = 0
     var emotionForCurrentLoad = ""
     
-    private let predictor = EmotionCheck()
     
+    private let predictor = EmotionCheck()
     
     static let shared = ImageRepository()
     
@@ -37,13 +37,11 @@ class ImageRepository {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
                 self.allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-                self.maxIndex = self.allPhotos.count
                 print("Found \(String(describing: self.allPhotos.count)) assets")
                 
             case .denied, .restricted:
                 print("Not allowed")
             case .notDetermined:
-                // Should not see this when requesting
                 print("Not determined yet")
             case .limited:
                 print("(limited)")
@@ -64,7 +62,7 @@ class ImageRepository {
         }
         return (false, nil)
     }
-
+    
     
     private func showPrediction(predictions: [EmotionCheck]?){
     }
@@ -78,30 +76,48 @@ class ImageRepository {
         
         
         for i in (self.currentIndex...(self.currentIndex + limit)) {
-            if(i <= self.maxIndex) {
-                PHImageManager.default().requestImage(for: self.allPhotos.object(at: i) as PHAsset, targetSize: CGSize(width: 500, height: 500), contentMode: contentMode, options: options) {
-                    image, info in
-                    guard let image = image else {return}
+            if (self.currentIndex > self.allPhotos.count){
+                return
+            }
+            PHImageManager.default().requestImage(for: self.allPhotos.object(at: i) as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
+                image, info in
+                guard let image = image else {return}
+                
+                let faceCheck = self.checkFace(image: image)
+                
+                if faceCheck.0 {
+                    let transformScale = CGAffineTransform(scaleX: 1, y: -1)
+                    let faceImage = CIImage(image: image)
+                    let transform = transformScale.translatedBy(x: 0, y: -faceImage!.extent.height)
+                    guard let cutImageRef: CGImage = image.cgImage?.cropping(to:faceCheck.1!.applying(transform)) else {return}
                     
-                    let faceCheck = self.checkFace(image: image)
-                    
-                    if faceCheck.0 {
-                        let transformScale = CGAffineTransform(scaleX: 1, y: -1)
-                        let faceImage = CIImage(image: image)
-                        let transform = transformScale.translatedBy(x: 0, y: -faceImage!.extent.height)
-                        guard let cutImageRef: CGImage = image.cgImage?.cropping(to:faceCheck.1!.applying(transform)) else {return}
-                        
-                        DispatchQueue.global(qos: .userInteractive).async {
-                            self.predictor.predict(image: UIImage(cgImage: cutImageRef), faceBounds: faceCheck.1){ result in
-                                DispatchQueue.main.async {
-                                    guard let maxItem = result!.max(by: {$0.1 < $1.1 }) else {return}
-                                    print(maxItem)
-                                    if (maxItem.0.lowercased() == self.emotionForCurrentLoad.lowercased()){
-                                        self.images.append(UIImage(cgImage: cutImageRef))
-                                    }
+                    DispatchQueue.global(qos: .userInteractive).async {
+                        self.predictor.predict(image: UIImage(cgImage: cutImageRef), faceBounds: faceCheck.1){ result in
+                            DispatchQueue.main.async {
+                                guard let maxItem = result!.max(by: {$0.1 < $1.1 }) else {return}
+                                print(maxItem)
+                                
+                                switch maxItem.0.lowercased() {
+                                case "angry":
+                                    EmotionsData.shared.angry.append(UIImage(cgImage: cutImageRef))
+                                case "happy":
+                                    EmotionsData.shared.happy.append(UIImage(cgImage: cutImageRef))
+                                case "sad":
+                                    EmotionsData.shared.sad.append(UIImage(cgImage: cutImageRef))
+                                case"disgust":
+                                    EmotionsData.shared.disgust.append(UIImage(cgImage: cutImageRef))
+                                case "fear":
+                                    EmotionsData.shared.fear.append(UIImage(cgImage: cutImageRef))
+                                case "neutral" :
+                                    EmotionsData.shared.neutral.append(UIImage(cgImage: cutImageRef))
+                                case "surprise" :
+                                    EmotionsData.shared.surprise.append(UIImage(cgImage: cutImageRef))
+                                default:
+                                    print("No matching emotion")
                                 }
                                 
                             }
+                            
                         }
                     }
                 }
@@ -110,5 +126,20 @@ class ImageRepository {
         }
         
     }
+}
+
+
+class EmotionsData{
+    
+    static let shared = EmotionsData()
+    
+    var angry: [UIImage] = []
+    var happy: [UIImage] = []
+    var sad: [UIImage] = []
+    var disgust: [UIImage] = []
+    var fear: [UIImage] = []
+    var neutral: [UIImage] = []
+    var surprise: [UIImage] = []
+    
 }
 

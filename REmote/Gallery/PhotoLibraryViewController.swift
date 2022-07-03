@@ -28,34 +28,59 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ImageRepository.shared.images = []
-        ImageRepository.shared.currentIndex = 0
+//        ImageRepository.shared.images = []
+//        ImageRepository.shared.currentIndex = 0
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.collectionViewLayout = columnLayout
         self.collectionView.contentInsetAdjustmentBehavior = .always
+        
         self.collectionView.isScrollEnabled = true
         self.collectionView.isUserInteractionEnabled = true
         self.collectionView.alwaysBounceVertical = true
         
-        
         ImageRepository.shared.loadMoreImages(limit: 100)
         
+        self.updateImages()
         
         
         ImageRepository.shared.imagesLoadedHandler = {
             self.reloadDataAsync()
         }
         
+        self.collectionView.scrollsToTop = true
         
+    }
+
+    
+    
+    func updateImages() {
+        switch ImageRepository.shared.emotionForCurrentLoad {
+        case "angry":
+            ImageRepository.shared.images.append(contentsOf: EmotionsData.shared.angry)
+        case "happy":
+            ImageRepository.shared.images.append(contentsOf: EmotionsData.shared.happy)
+        case "sad":
+            ImageRepository.shared.images.append(contentsOf: EmotionsData.shared.sad)
+        case"disgust":
+            ImageRepository.shared.images.append(contentsOf: EmotionsData.shared.disgust)
+        case "fear":
+            ImageRepository.shared.images.append(contentsOf: EmotionsData.shared.fear)
+        case "neutral" :
+            ImageRepository.shared.images.append(contentsOf: EmotionsData.shared.neutral)
+        case "surprise" :
+            ImageRepository.shared.images.append(contentsOf: EmotionsData.shared.surprise)
+        default:
+            print("No matching emotion")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.collectionView.scrollToBottom(animated: false)
-        }
+//        DispatchQueue.main.async {
+//            self.collectionView.scrollToBottom(animated: false)
+//        }
         
     }
     
@@ -69,7 +94,9 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
         let postion = scrollView.contentOffset.y
         if postion > (collectionView.contentSize.height - scrollView.frame.size.height - 100){
             print("loading data")
+            ImageRepository.shared.images = []
             ImageRepository.shared.loadMoreImages(limit: 50)
+            self.updateImages()
             collectionView.reloadData()
         }
     }
