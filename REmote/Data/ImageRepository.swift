@@ -79,18 +79,25 @@ class ImageRepository {
         
         for i in (self.currentIndex...(self.currentIndex + limit)) {
             if(i <= self.maxIndex) {
-                PHImageManager.default().requestImage(for: self.allPhotos.object(at: i) as PHAsset, targetSize: CGSize(width: 200, height: 200), contentMode: contentMode, options: options) {
+                PHImageManager.default().requestImage(for: self.allPhotos.object(at: i) as PHAsset, targetSize: CGSize(width: 500, height: 500), contentMode: contentMode, options: options) {
                     image, info in
                     guard let image = image else {return}
                     
                     let faceCheck = self.checkFace(image: image)
                     
                     if faceCheck.0 {
+                        let transformScale = CGAffineTransform(scaleX: 1, y: -1)
+                        let faceImage = CIImage(image: image)
+                        let transform = transformScale.translatedBy(x: 0, y: -faceImage!.extent.height)
+                        guard let cutImageRef: CGImage = image.cgImage?.cropping(to:faceCheck.1!.applying(transform)) else {return}
+                        
                         DispatchQueue.global(qos: .userInteractive).async {
-                            self.predictor.predict(image: image, faceBounds: faceCheck.1){ result in
+                            self.predictor.predict(image: UIImage(cgImage: cutImageRef), faceBounds: faceCheck.1){ result in
                                 DispatchQueue.main.async {
-                                    if (result?.first?.0.lowercased() == self.emotionForCurrentLoad.lowercased()){
-                                        self.images.append(image)
+                                    guard let maxItem = result!.max(by: {$0.1 < $1.1 }) else {return}
+                                    print(maxItem)
+                                    if (maxItem.0.lowercased() == self.emotionForCurrentLoad.lowercased()){
+                                        self.images.append(UIImage(cgImage: cutImageRef))
                                     }
                                 }
                                 

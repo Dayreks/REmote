@@ -35,16 +35,14 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
         self.collectionView.dataSource = self
         self.collectionView.collectionViewLayout = columnLayout
         self.collectionView.contentInsetAdjustmentBehavior = .always
-        if (ImageRepository.shared.allPhotos.count == 0){
-            ImageRepository.shared.requestAllImages() { imgs in
-                ImageRepository.shared.images = imgs
-                ImageRepository.shared.loadMoreImages(limit: 100)
-                print(ImageRepository.shared.images.count)
-                
-            }
-        } else {
-            ImageRepository.shared.loadMoreImages(limit: 100)
-        }
+        self.collectionView.isScrollEnabled = true
+        self.collectionView.isUserInteractionEnabled = true
+        self.collectionView.alwaysBounceVertical = true
+        
+        
+        ImageRepository.shared.loadMoreImages(limit: 100)
+        
+        
         
         ImageRepository.shared.imagesLoadedHandler = {
             self.reloadDataAsync()
@@ -64,6 +62,15 @@ class PhotoLibraryViewController: UIViewController,  UIScrollViewDelegate{
     private func reloadDataAsync() {
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadData()
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let postion = scrollView.contentOffset.y
+        if postion > (collectionView.contentSize.height - scrollView.frame.size.height - 100){
+            print("loading data")
+            ImageRepository.shared.loadMoreImages(limit: 50)
+            collectionView.reloadData()
         }
     }
     
@@ -100,6 +107,9 @@ extension UICollectionView {
         }
         scrollToItem(at: lastIndexPath, at: .bottom, animated: animated)
     }
+    
+    
+    
 }
 
 extension PhotoLibraryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

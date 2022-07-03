@@ -23,12 +23,8 @@ public class EmotionCheck {
     func predict(image: UIImage, faceBounds: CGRect?, complition: @escaping ([EmotionResult]?) -> Void) {
         self.compl = complition
         let request = classificationRequest()
-        let transformScale = CGAffineTransform(scaleX: 1, y: -1)
-        let faceImage = CIImage(image: image)
-        let transform = transformScale.translatedBy(x: 0, y: -faceImage!.extent.height)
-        guard let cutImageRef: CGImage = image.cgImage?.cropping(to:faceBounds!.applying(transform)) else {return}
         let handler = VNImageRequestHandler(
-            cgImage: cutImageRef,
+            cgImage: image.cgImage!,
             orientation: CGImagePropertyOrientation(image.imageOrientation)
         )
         
